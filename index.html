@@ -1,1 +1,235 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Dhongi 🎀</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: Georgia, serif;
+  color: white;
+  text-align: center;
+  background:
+    radial-gradient(circle at top, #51264f, transparent 55%),
+    linear-gradient(145deg, #090817, #17142e);
+}
+
+.card {
+  width: 100%;
+  max-width: 460px;
+  padding: 32px 22px;
+  border: 1px solid #ffacd966;
+  border-radius: 25px;
+  background: #ffffff0d;
+  box-shadow: 0 0 35px #ff79c622;
+}
+
+h1 {
+  color: #ffb9df;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 1.8;
+  margin: 15px 0;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 13px 20px;
+  margin-top: 18px;
+  background: linear-gradient(100deg, #ffb6dc, #c8b8ff);
+  color: #28142b;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+  animation: appear .6s ease;
+}
+
+.cake {
+  font-size: 85px;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+}
+
+.small {
+  font-size: 11px;
+  color: #d9c8e2;
+}
+
+#final {
+  display: none;
+  color: #ffc6e5;
+  margin-top: 25px;
+}
+
+#effects {
+  font-size: 23px;
+  line-height: 1.8;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <section class="page active" id="welcome">
+    <p>🎀 A LITTLE SURPRISE FOR YOU 🎀</p>
+    <h1>Prio Dhongi… 🫠</h1>
+
+    <p>
+      Tomar ei special dine<br>
+      dur theke ekta chotto wish pathalam…<br><br>
+      Tomar ati mulloban somoy theke<br>
+      somvob hole 2 min amay dio.
+    </p>
+
+    <button onclick="next('hello')">
+      A little surprise for u madam... Please open it
+    </button>
+
+    <p class="small">Demo Preview · 11 October 2026</p>
+  </section>
+
+
+  <section class="page" id="hello">
+    <h1>Welcome, Dhongi! 🎀</h1>
+
+    <p>
+      May your days be filled with happiness,<br>
+      peace, and beautiful little moments.
+    </p>
+
+    <p>
+      Mahadev tomar sob bhalo icche puron korun.<br>
+      Tomar Advocate hoyar shopno<br>
+      khub taratari bastob hok. 🕉️
+    </p>
+
+    <button onclick="next('letter')">
+      Open Your Letter 💌
+    </button>
+  </section>
+
+
+  <section class="page" id="letter">
+    <h1>Happy Birthday, Dear Dhongi 🎂</h1>
+
+    <p style="text-align:left">
+      Dear Dhongi,<br><br>
+
+      Tomar jonno mon theke onek onek
+      bhalo kamona roilo.<br><br>
+
+      Mahadev jeno sobsomoy tomar pashe thaken.
+      Tomar mukher hasi-ta jeno emni thake,
+      ar tomar Advocate hoyar shopno-ta
+      jeno khub taratari puron hoy.<br><br>
+
+      Nijer upor bishwas rekho,
+      nijer moto kore egie cholo.
+      Tomar agami din-gulo sundor hok. ✨<br><br>
+
+      — Tomar Tarkata 🖤
+    </p>
+
+    <button onclick="next('cakePage')">
+      One Little Surprise More 🎂
+    </button>
+  </section>
+
+
+  <section class="page" id="cakePage">
+    <h1>Please Cut the Cake 🎂</h1>
+
+    <p>Make a wish, Dhongi! 🌙</p>
+
+    <span class="cake" id="cake">🎂</span>
+
+    <p class="small">Please tap here</p>
+
+    <div id="effects"></div>
+
+    <div id="final">
+      ei special diner mulloban somoy<br>
+      deoyar jonno dhonyobad madam ✨
+    </div>
+
+    <button id="replay" style="display:none"
+      onclick="location.reload()">
+      Replay Demo ↻
+    </button>
+  </section>
+
+</div>
+
+<script>
+function next(id) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+}
+
+let cut = false;
+
+document.getElementById('cake').onclick = function() {
+  if (cut) return;
+  cut = true;
+
+  this.textContent = '🍰';
+
+  const effects = document.getElementById('effects');
+  const emojis = ['🎉', '✨', '🎀', '💫', '🎊', '🩷'];
+
+  effects.textContent = emojis.join('  ');
+
+  if ('speechSynthesis' in window) {
+    const msg = new SpeechSynthesisUtterance('Happy Birthday Dhongi');
+    msg.lang = 'en-IN';
+    msg.rate = 0.9;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msg);
+  }
+
+  setTimeout(() => {
+    effects.style.display = 'none';
+    document.getElementById('final').style.display = 'block';
+    document.getElementById('replay').style.display = 'inline-block';
+  }, 2500);
+};
+</script>
+
+</body>
+</html>
